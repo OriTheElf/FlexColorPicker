@@ -30,5 +30,5 @@ import UIKit
 
 public protocol ColorSliderDelegate {
     func modifiedColor(from color: HSBColor, with value: CGFloat) -> HSBColor
-    func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor)
+    func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor])
 }

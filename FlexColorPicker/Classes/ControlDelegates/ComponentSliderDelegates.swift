@@ -35,8 +35,8 @@ public struct SaturationSliderDelegate: ColorSliderDelegate {
         return color.withSaturation(value)
     }
 
-    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
-        return (color.saturation, color.withSaturation(0).toUIColor(), color.withSaturation(1).toUIColor())
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor]) {
+        return (color.saturation, [color.withSaturation(0).toUIColor(), color.withSaturation(1).toUIColor()])
     }
 }
 
@@ -47,8 +47,8 @@ public struct BrightnessSliderDelegate: ColorSliderDelegate {
         return color.withBrightness(1 - value)
     }
 
-    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
-        return (1 - color.brightness, color.withBrightness(1).toUIColor(), color.withBrightness(0).toUIColor())
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor]) {
+        return (1 - color.brightness, [color.withBrightness(1).toUIColor(), color.withBrightness(0).toUIColor()])
     }
 }
 
@@ -59,8 +59,8 @@ public struct RedSliderDelegate: ColorSliderDelegate {
         return color.withRed(value)
     }
 
-    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
-        return (color.rgb.red, color.withRed(0).toUIColor(), color.withRed(1).toUIColor())
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor]) {
+        return (color.rgb.red, [color.withRed(0).toUIColor(), color.withRed(1).toUIColor()])
     }
 }
 
@@ -71,8 +71,8 @@ public struct GreenSliderDelegate: ColorSliderDelegate {
         return color.withGreen(value)
     }
 
-    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
-        return (color.rgb.green, color.withGreen(0).toUIColor(), color.withGreen(1).toUIColor())
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor]) {
+        return (color.rgb.green, [color.withGreen(0).toUIColor(), color.withGreen(1).toUIColor()])
     }
 }
 
@@ -83,7 +83,7 @@ public struct BlueSliderDelegate: ColorSliderDelegate {
         return color.withBlue(value)
     }
 
-    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
-        return (color.rgb.blue, color.withBlue(0).toUIColor(), color.withBlue(1).toUIColor())
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor]) {
+        return (color.rgb.blue, [color.withBlue(0).toUIColor(), color.withBlue(1).toUIColor()])
     }
 }

@@ -48,7 +48,7 @@ open class ColorSliderControl: ColorControlWithThumbView {
     /// This is usefull e.g. when "physically correct" percentage label behaviour of `BrightnessSliderControl` is preferred (as the most "bright" color is on the left of the slider in that case).
     public var reversePercentage: Bool = false {
         didSet {
-            let (value, _, _) = sliderDelegate.valueAndGradient(for: selectedHSBColor)
+            let (value, _) = sliderDelegate.valueAndGradient(for: selectedHSBColor)
             updatePercentageLabel(for: value)
         }
     }
@@ -56,7 +56,7 @@ open class ColorSliderControl: ColorControlWithThumbView {
     /// When set to non-nil value it will be used to generate label text of `thumbView` directly instead of via setting `thumbView`s `percentage` property. setting this overrides `percentage` property.
     public var thumbLabelFormatter: ((CGFloat) -> String)? {
         didSet {
-            let (value, _, _) = sliderDelegate.valueAndGradient(for: selectedHSBColor)
+            let (value, _) = sliderDelegate.valueAndGradient(for: selectedHSBColor)
             updatePercentageLabel(for: value)
         }
     }
@@ -117,14 +117,13 @@ open class ColorSliderControl: ColorControlWithThumbView {
     /// - Parameter interactive:  Whether the change originated from user interaction or is programatic. This can be used to determine if certain animations should be played.
     open func updateThumbAndGradient(isInteractive interactive: Bool) {
         layoutIfNeeded() //force subviews layout to update their bounds - bounds of subviews are not automatically updated
-        let (value, gradientStart, gradientEnd) = sliderDelegate.valueAndGradient(for: selectedHSBColor)
+        let (value, gradientColors) = sliderDelegate.valueAndGradient(for: selectedHSBColor)
         let gradientLength = contentBounds.width - thumbView.colorIdicatorRadius * 2 //cannot use self.bounds as that is extended compared to foregroundImageView.bounds when AdjustedHitBoxColorControl.hitBoxInsets are non-zero
         thumbView.frame = CGRect(center: CGPoint(x: thumbView.colorIdicatorRadius + gradientLength * min(max(0, value), 1), y: contentView.bounds.midY), size: thumbView.intrinsicContentSize)
         thumbView.setColor(selectedHSBColor.toUIColor(), animateBorderColor: interactive)
         gradientView.startOffset = thumbView.colorIdicatorRadius
         gradientView.endOffset = thumbView.colorIdicatorRadius
-        gradientView.startColor = gradientStart //to keep the gradient realistic (you select exactly the same color that you tapped) we need to offset gradient as tapping first and last part of gradient (of length thumbView.colorIdicatorRadius) always selects max or min color
-        gradientView.endColor = gradientEnd
+        gradientView.colors = gradientColors //to keep the gradient realistic (you select exactly the same color that you tapped) we need to offset gradient as tapping first and last part of gradient (of length thumbView.colorIdicatorRadius) always selects max or min color
     }
 
     open override func updateSelectedColor(at point: CGPoint, isInteractive: Bool) {

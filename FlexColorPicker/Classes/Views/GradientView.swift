@@ -38,15 +38,7 @@ public class GradientView: UIView {
         return layer as! CAGradientLayer
     }
 
-    /// Background gradient first color (first stop of the gradient).
-    public var startColor: UIColor = .clear {
-        didSet {
-            updateColors()
-        }
-    }
-
-    /// Background gradient last color (last stop of the gradient).
-    public var endColor: UIColor = .clear {
+    public var colors: [UIColor] = [] {
         didSet {
             updateColors()
         }
@@ -73,7 +65,7 @@ public class GradientView: UIView {
     }
 
     open func updateColors() {
-        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.colors = colors.map(\.cgColor)
     }
 
     open func updatePoints() {
