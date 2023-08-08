@@ -66,7 +66,7 @@ class UISliderColorControl: UISlider, ColorControl {
 
     func setSelectedHSBColor(_ hsbColor: HSBColor, isInteractive: Bool) {
         selectedHSBColor = hsbColor
-        let (value, _, _) = delegate.valueAndGradient(for: hsbColor)
+        let (value, _) = delegate.valueAndGradient(for: hsbColor)
         self.value = Float(value)
         thumbTintColor = hsbColor.toUIColor()
     }
@@ -91,8 +91,8 @@ final class SaturationUISliderColorControl: UISliderColorControl {
 
     override func setSelectedHSBColor(_ hsbColor: HSBColor, isInteractive: Bool) {
         super.setSelectedHSBColor(hsbColor, isInteractive: isInteractive)
-        let (_, _, maxSaturationColor) = delegate.valueAndGradient(for: hsbColor)
-        maximumTrackTintColor = maxSaturationColor
+        let (_, colors) = delegate.valueAndGradient(for: hsbColor)
+        maximumTrackTintColor = colors.last ?? .white
     }
 }
 

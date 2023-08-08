@@ -1,0 +1,6 @@
+framework module Pods_FlexColorPickerDemo {
+  umbrella header "Pods-FlexColorPickerDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}

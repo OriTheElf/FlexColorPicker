@@ -33,7 +33,7 @@ struct HueColorSliderDelegate: ColorSliderDelegate {
         return color.withHue(value)
     }
 
-    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientStart: UIColor, gradientEnd: UIColor) {
-        return (color.hue, color.withHue(0).toUIColor(), color.withHue(1).toUIColor())
+    public func valueAndGradient(for color: HSBColor) -> (value: CGFloat, gradientColors: [UIColor]) {
+        return (color.hue, [color.withHue(0).toUIColor(), color.withHue(1).toUIColor()])
     }
 }
