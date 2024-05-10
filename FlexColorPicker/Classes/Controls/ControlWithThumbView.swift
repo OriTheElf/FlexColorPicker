@@ -32,8 +32,11 @@ import UIKit
 ///
 /// - Important: It is **not** recomended to subclass this class directly. Subclass `ColorPaletteControl` or `ColorSliderControl` instead.
 open class ColorControlWithThumbView: AdjustedHitBoxColorControl, LimitedGestureViewDelegate {
+    /// 滑块
     public let thumbView = ColorPickerThumbView()
-
+    /// 点击事件回调
+    public var touchesWithEvent: ((Set<UITouch>, UIEvent?) -> Void)?
+    
     open override func commonInit() {
         super.commonInit()
         thumbView.delegate = self
@@ -58,6 +61,9 @@ open class ColorControlWithThumbView: AdjustedHitBoxColorControl, LimitedGesture
         }
         thumbView.setExpanded(true, animated: true)
         updateSelectedColor(at: location)
+        if let touchesWithEvent {
+            touchesWithEvent(touches, event)
+        }
         super.touchesBegan(touches, with: event)
     }
 
@@ -66,6 +72,9 @@ open class ColorControlWithThumbView: AdjustedHitBoxColorControl, LimitedGesture
             return
         }
         updateSelectedColor(at: location)
+        if let touchesWithEvent {
+            touchesWithEvent(touches, event)
+        }
         super.touchesMoved(touches, with: event)
     }
 
@@ -75,6 +84,9 @@ open class ColorControlWithThumbView: AdjustedHitBoxColorControl, LimitedGesture
         }
         updateSelectedColor(at: location)
         thumbView.setExpanded(false, animated: true)
+        if let touchesWithEvent {
+            touchesWithEvent(touches, event)
+        }
         super.touchesEnded(touches, with: event)
     }
 
@@ -84,6 +96,9 @@ open class ColorControlWithThumbView: AdjustedHitBoxColorControl, LimitedGesture
         }
         updateSelectedColor(at: location)
         thumbView.setExpanded(false, animated: true)
+        if let touchesWithEvent {
+            touchesWithEvent(touches, event)
+        }
         super.touchesCancelled(touches, with: event)
     }
 }
