@@ -30,7 +30,7 @@ import UIKit
 
 /// Represetation of a color in HSB (Hue, Saturation, Brightness) color model. This model can be directly converted to and from RGB model.
 /// - Note: HSB is better representation for color picker than RGB as its components often maps directly to user interactions.
-public struct HSBColor {
+public struct HSBColor: Codable {
     /// Hue value in interval <0, 1>
     public let hue: CGFloat
     /// Saturation value in interval <0, 1>
